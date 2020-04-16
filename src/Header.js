@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,7 +8,9 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { Button, MenuItem } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -68,15 +70,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Header() {
   const classes = useStyles();
+  const [menuOpen, setMenuOpen] = useState(null)
+  const [redirect, setRedirect] = useState(null)
 
-  const handleMenuClick = () => {
-    console.log("abre menu");
+  const handleMenuOpen = (event) => {
+    setMenuOpen(event.currentTarget);
+    console.log("click menu");
+  }
+
+  const handleMenuClose = () => {
+    console.log("fecha menu");
+    setMenuOpen(null);
   };
+
+  const MenuPrincipal = () => <Menu
+    id="simple-menu"
+    anchorEl={menuOpen}
+    keepMounted
+    open={Boolean(menuOpen)}
+    onClose={handleMenuClose}
+  >
+    <MenuItem onClick={() => setRedirect('/')}>Produtos</MenuItem>
+    <MenuItem onClick={() => setRedirect('/carrinho')}>Carrinho</MenuItem>
+    <MenuItem onClick={() => setRedirect('/config')}>Configurações</MenuItem>
+  </Menu>;
 
   return (
     <div className={classes.grow}>
+      {redirect &&
+        <Redirect to={redirect} />
+      }
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -84,14 +110,15 @@ export default function Header() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={() => handleMenuClick}
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleMenuOpen}
           >
             <MenuIcon />
           </IconButton>
+          <MenuPrincipal />
           <Link to="/" className={classes.title}>
-            <Typography variant="h6" noWrap>
-              MiniMarket
-            </Typography>
+            <Typography variant="h6" noWrap>Lista de produtos</Typography>
           </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -108,9 +135,10 @@ export default function Header() {
           </div>
           <div className={classes.sectionDesktop}>
             <Link to="/carrinho">
-              <IconButton aria-label="Veja seu carrinho de compras" color="inherit">
+              <Button aria-label="Veja seu carrinho de compras" color="inherit">
+                carrinho&nbsp;
                 <ShoppingCartIcon />
-              </IconButton>
+              </Button>
             </Link>
           </div>
         </Toolbar>

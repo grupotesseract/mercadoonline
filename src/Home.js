@@ -4,12 +4,13 @@ import Produto from './Produto';
 import { listaProdutos } from './produtos';
 import CarrinhoContext from './CarrinhoContext';
 import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   static contextType = CarrinhoContext
 
   render() {
-    const { addProduto } = this.context;
+    const { addProduto, decrementaProduto } = this.context;
     return <div className="App">
       <header className="App-header">
         <Header />
@@ -19,11 +20,18 @@ class Home extends Component {
           addProduto={addProduto}
           key={produto.id}
           produto={produto}
+          decrementaProduto={decrementaProduto}
         />)}
       </div>
-      <Button>
-        Ver Carrinho
-      </Button>
+      <Link to="/carrinho">
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{margin: 10, marginBottom: 30}}
+        >
+          Ver Carrinho
+        </Button>
+      </Link>
     </div>
   }
 }

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MiniMarket",
+  "name": "Lista de produtos para minimercados",
   "icons": [
     {
       "src": "favicon.ico",

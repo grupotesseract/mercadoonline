@@ -3,12 +3,13 @@ import Header from './Header';
 import Produto from './Produto';
 import CarrinhoContext from './CarrinhoContext';
 import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 class Carrinho extends Component {
   static contextType = CarrinhoContext
 
   handleFinalizarCompra() {
-    const { produtos } = this.context;
+    const { produtos, whatsappNumber } = this.context;
     console.log("produtos no carrinho", produtos);
     let msgWhatsapp = '';
     msgWhatsapp += 'Pedido feito em ' + new Date().toLocaleString('pt-BR') + '\n\n';
@@ -18,14 +19,14 @@ class Carrinho extends Component {
     })
     .join('\n');
     console.log('msg zap', msgWhatsapp);
-    const url = 'https://web.whatsapp.com/send?phone=5548984864947&text=' + encodeURIComponent(msgWhatsapp);
+    const url = 'https://web.whatsapp.com/send?phone='+whatsappNumber+'&text=' + encodeURIComponent(msgWhatsapp);
     console.log("url", url);
     window.open(url);
   }
 
   render() {
 
-    const { produtos, addProduto } = this.context;
+    const { produtos, addProduto, decrementaProduto, removeProduto } = this.context;
     console.log("produtos no carrinho", produtos);
 
     return <div className="App">
@@ -33,14 +34,40 @@ class Carrinho extends Component {
         <Header />
       </header>
       <div style={{ padding: 10 }}>
-        {produtos.map(produto => <Produto produto={produto} key={produto.id} addProduto={addProduto} />)}
+        {produtos.map(produto => <Produto
+          carrinho={true}
+          produto={produto}
+          key={produto.id}
+          addProduto={addProduto}
+          decrementaProduto={decrementaProduto}
+          removeProduto={removeProduto}
+        />)}
+        {
+          produtos.length <= 0 &&
+          <div>
+            <span> Você não tem produtos no carrinho.</span>
+            <Link to="/" style={{ margin: 10 }}>
+              <Button
+                color="primary"
+                variant="contained"
+              >
+                Ver mais produtos
+              </Button>
+            </Link>
+          </div>
+        }
       </div>
-      <Button
-        type="primary"
-        onClick={() => this.handleFinalizarCompra()}
-      >
-        Finalizar Compra
-      </Button>
+      {
+        produtos.length > 0 &&
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() => this.handleFinalizarCompra()}
+          style={{ margin: 10 }}
+        >
+          Finalizar Compra
+        </Button>
+      }
     </div>
   }
 }
