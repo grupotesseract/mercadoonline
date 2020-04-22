@@ -27,7 +27,7 @@ export const listaProdutos = [
     foto: 'cafe.jpg',
   },
   {
-    id: 22,
+    id: 23,
     nome: 'Filtro de Papel MELITTA 100 com 30 Unidades',
     descricao: `
       O Original Melitta® possui a exclusiva tecnologia de microfuros, esses furinhos no papel que têm o tamanho certo para deixar passar todo o aroma e sabor.

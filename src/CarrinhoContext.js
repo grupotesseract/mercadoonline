@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 const INITIAL_STATE = {
   produtos: [],
+  filtro: '',
   whatsappNumber: '554896232003',
 }
 
@@ -71,10 +72,31 @@ class CarrinhoProvider extends Component {
     }))
   }
 
+  setFiltro = filtro => {
+    this.setState({
+      filtro
+    })
+  }
+  filtraProdutos = (produtos) => {
+    const { filtro } = this.state;
+    const produtosFiltrados = produtos.filter(produto =>
+      produto.nome.toLowerCase().search(filtro.toLowerCase()) !== -1 ||
+      produto.descricao.toLowerCase().search(filtro.toLowerCase()) !== -1
+    )
+    return produtosFiltrados;
+  }
+
   render() {
     const { children } = this.props
     const { produtos, whatsappNumber } = this.state
-    const { addProduto, removeProduto, decrementaProduto, setWhatsappNumber } = this
+    const {
+      addProduto,
+      removeProduto,
+      decrementaProduto,
+      setWhatsappNumber,
+      setFiltro,
+      filtraProdutos,
+    } = this
 
     return (
       <CarrinhoContext.Provider
@@ -85,6 +107,8 @@ class CarrinhoProvider extends Component {
           addProduto,
           decrementaProduto,
           removeProduto,
+          setFiltro,
+          filtraProdutos,
         }}
       >
         {children}

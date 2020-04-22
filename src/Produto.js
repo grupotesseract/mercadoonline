@@ -5,12 +5,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { CardMedia } from '@material-ui/core';
+import { CardMedia, Hidden } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
     margin: 20,
@@ -23,22 +23,39 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   footer: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'row',
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
   cover: {
     height: '300px',
     width: '300px',
     flexShrink: 0,
+    order: 2,
   },
   row: {
     display: 'flex',
+    flexDirection: 'row',
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
-});
+  informacoes: {
+    order: 3,
+    [theme.breakpoints.down("sm")]: {
+      order: 1,
+    }
+  },
+}));
 
 const Produto = (props) => {
   const classes = useStyles();
   const { produto } = props;
-  console.log('props produto', props);
 
   return (
     <Card className={classes.root}>
@@ -48,7 +65,7 @@ const Produto = (props) => {
           image={'/produtos/'+produto.foto}
           title=""
         />
-        <CardContent>
+        <CardContent className={classes.informacoes}>
             <Typography className={classes.title} gutterBottom>
               {produto.nome}
             </Typography>
@@ -61,7 +78,7 @@ const Produto = (props) => {
         </CardContent>
       </div>
       <CardActions className={classes.footer}>
-        <span>R$ {produto.preco}</span>
+        <span style={{padding: 10}}>R$ {produto.preco}</span>
 
         {
           produto.quantidade > 0 &&
@@ -88,7 +105,7 @@ const Produto = (props) => {
             variant="contained"
             color="primary"
             onClick={() => props.addProduto(produto)}>
-            Adicionar ao carrinho
+            <Hidden xsDown>Adicionar ao</Hidden> carrinho
             <AddIcon />
           </Button>
         }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, MenuItem } from '@material-ui/core';
+import CarrinhoContext from './CarrinhoContext';
 import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,13 +77,16 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(null)
   const [redirect, setRedirect] = useState(null)
 
+  const context = useContext(CarrinhoContext);
+  const { setFiltro } = context;
+
+
+
   const handleMenuOpen = (event) => {
     setMenuOpen(event.currentTarget);
-    console.log("click menu");
   }
 
   const handleMenuClose = () => {
-    console.log("fecha menu");
     setMenuOpen(null);
   };
 
@@ -131,6 +135,7 @@ export default function Header() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={e => setFiltro(e.target.value)}
             />
           </div>
           <div className={classes.sectionDesktop}>

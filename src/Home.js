@@ -10,13 +10,13 @@ class Home extends Component {
   static contextType = CarrinhoContext
 
   render() {
-    const { addProduto, decrementaProduto } = this.context;
+    const { addProduto, decrementaProduto, filtraProdutos } = this.context;
     return <div className="App">
       <header className="App-header">
         <Header />
       </header>
       <div style={{ padding: 10 }}>
-        {listaProdutos.map(produto => <Produto
+        {filtraProdutos(listaProdutos).map(produto => <Produto
           addProduto={addProduto}
           key={produto.id}
           produto={produto}

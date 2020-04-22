@@ -63,7 +63,7 @@ class Carrinho extends Component {
           color="secondary"
           variant="contained"
           onClick={() => this.handleFinalizarCompra()}
-          style={{ margin: 10 }}
+          style={{ marginTop: 5, marginBottom: 20, padding: 20, fontSize: 18, width: '100vw'  }}
         >
           Finalizar Compra
         </Button>
