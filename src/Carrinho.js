@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Produto from './Produto';
 import CarrinhoContext from './CarrinhoContext';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 class Carrinho extends Component {
@@ -13,10 +13,10 @@ class Carrinho extends Component {
     console.log("produtos no carrinho", produtos);
     let msgWhatsapp = '';
     msgWhatsapp += 'Pedido feito em ' + new Date().toLocaleString('pt-BR') + '\n\n';
-    msgWhatsapp += 'Quantidade | Produto'
+    msgWhatsapp += 'Quantidade | Produto\n'
     msgWhatsapp += produtos
     .map(produto => {
-      return 'qtd:' + produto.quantidade + ' | ' + produto.nome;
+      return 'qtd: ' + produto.quantidade + ' | ' + produto.nome;
     })
     .join('\n');
     console.log('msg zap', msgWhatsapp);
@@ -34,6 +34,7 @@ class Carrinho extends Component {
       <header className="App-header">
         <Header />
       </header>
+      <Typography variant="h3" style={{marginTop: 20}}>Carrinho</Typography>
       <div style={{ padding: 10 }}>
         {produtos.map(produto => <Produto
           carrinho={true}

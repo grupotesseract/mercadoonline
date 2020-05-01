@@ -3,8 +3,9 @@ import Header from './Header';
 import Produto from './Produto';
 import { listaProdutos } from './produtos';
 import CarrinhoContext from './CarrinhoContext';
-import { Button } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Banner from './components/Banner';
 
 class Home extends Component {
   static contextType = CarrinhoContext
@@ -15,23 +16,27 @@ class Home extends Component {
       <header className="App-header">
         <Header />
       </header>
-      <div style={{ padding: 10 }}>
-        {filtraProdutos(listaProdutos).map(produto => <Produto
-          addProduto={addProduto}
-          key={produto.id}
-          produto={produto}
-          decrementaProduto={decrementaProduto}
-        />)}
-      </div>
-      <Link to="/carrinho">
-        <Button
-          variant="contained"
-          color="secondary"
-          style={{margin: 10, marginBottom: 30}}
-        >
-          Ver Carrinho
+      <Container>
+        <Banner />
+        <div>
+          <Typography variant="h3" style={{marginTop: 20}}>Lista de produtos</Typography>
+          {filtraProdutos(listaProdutos).map(produto => <Produto
+            addProduto={addProduto}
+            key={produto.id}
+            produto={produto}
+            decrementaProduto={decrementaProduto}
+          />)}
+        </div>
+        <Link to="/carrinho">
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ margin: 10, marginBottom: 30 }}
+          >
+            Ver Carrinho
         </Button>
-      </Link>
+        </Link>
+      </Container>
     </div>
   }
 }
