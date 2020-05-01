@@ -13,13 +13,14 @@ class Carrinho extends Component {
     console.log("produtos no carrinho", produtos);
     let msgWhatsapp = '';
     msgWhatsapp += 'Pedido feito em ' + new Date().toLocaleString('pt-BR') + '\n\n';
+    msgWhatsapp += 'Quantidade | Produto'
     msgWhatsapp += produtos
     .map(produto => {
-      return 'Quantidade:' + produto.quantidade + ' Produto:' + produto.nome;
+      return 'qtd:' + produto.quantidade + ' | ' + produto.nome;
     })
     .join('\n');
     console.log('msg zap', msgWhatsapp);
-    const url = 'https://web.whatsapp.com/send?phone='+whatsappNumber+'&text=' + encodeURIComponent(msgWhatsapp);
+    const url = 'https://api.whatsapp.com/send?phone='+whatsappNumber+'&text=' + encodeURIComponent(msgWhatsapp);
     console.log("url", url);
     window.open(url);
   }
