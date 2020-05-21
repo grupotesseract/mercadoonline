@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import { Button, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import Banner from './components/Banner';
-import Produtos from './Produtos';
+import Banner from '../components/Banner';
+import Produtos from '../components/Produtos';
 
 class Home extends Component {
 

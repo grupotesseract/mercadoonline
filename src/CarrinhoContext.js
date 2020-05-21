@@ -77,6 +77,7 @@ class CarrinhoProvider extends Component {
       filtro
     })
   }
+
   filtraProdutos = (produtos) => {
     const { filtro } = this.state;
     const produtosFiltrados = produtos.filter(produto =>

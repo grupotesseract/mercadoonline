@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, MenuItem } from '@material-ui/core';
-import CarrinhoContext from './CarrinhoContext';
+import CarrinhoContext from '../CarrinhoContext';
 import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles((theme) => ({

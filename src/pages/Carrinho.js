@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Produto from './Produto';
-import CarrinhoContext from './CarrinhoContext';
+import Header from '../components/Header';
+import Produto from '../components/Produto';
+import CarrinhoContext from '../CarrinhoContext';
 import { Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as PedidosActions from "../store/pedidos/actions";
+import { bindActionCreators } from 'redux';
 
 class Carrinho extends Component {
   static contextType = CarrinhoContext
@@ -28,6 +31,8 @@ class Carrinho extends Component {
   render() {
 
     const { produtos, addProduto, decrementaProduto, removeProduto } = this.context;
+    const { pedido } = this.props;
+    console.log("carrinho no redux", pedido);
     console.log("produtos no carrinho", produtos);
 
     return <div className="App">
@@ -74,4 +79,12 @@ class Carrinho extends Component {
   }
 }
 
-export default Carrinho;
+function mapStateToProps(state) {
+  const { pedido } = state;
+  return { pedido };
+}
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(PedidosActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Carrinho);

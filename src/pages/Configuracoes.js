@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import CarrinhoContext from './CarrinhoContext';
+import Header from '../components/Header';
+import CarrinhoContext from '../CarrinhoContext';
 import { TextField, Typography } from '@material-ui/core';
 
 class Configuracoes extends Component {

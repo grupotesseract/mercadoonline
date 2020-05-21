@@ -1,8 +1,5 @@
 import { ProdutosActionTypes } from './types'
 
-export function updateProdutos(produtos) {
-  return {
-    type: ProdutosActionTypes.UPDATE_PRODUTOS,
-    payload: produtos
-  }
-}
+export const updateProdutos = () => ({
+  type: ProdutosActionTypes.REQUEST_UPDATE_PRODUTOS,
+})
