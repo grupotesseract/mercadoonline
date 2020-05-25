@@ -81,7 +81,7 @@ class CarrinhoProvider extends Component {
   filtraProdutos = (produtos) => {
     const { filtro } = this.state;
     const produtosFiltrados = produtos.filter(produto =>
-      produto.nome.toLowerCase().search(filtro.toLowerCase()) !== -1 ||
+      produto.titulo.toLowerCase().search(filtro.toLowerCase()) !== -1 ||
       produto.descricao.toLowerCase().search(filtro.toLowerCase()) !== -1
     )
     return produtosFiltrados;

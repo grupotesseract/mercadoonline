@@ -4,7 +4,6 @@ export function pedidosReducer(
   state = INITIAL_STATE_PEDIDOS,
   action
 ) {
-  console.log('reducer', state, action)
   const { carrinho } = state;
   switch (action.type) {
     case PedidosActionTypes.ENVIA_PEDIDO: 

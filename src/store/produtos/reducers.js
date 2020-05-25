@@ -4,7 +4,6 @@ export function produtosReducer(
   state = INITIAL_STATE_PRODUTOS,
   action
 ) {
-  console.log('reducer', state, action)
   switch (action.type) {
     case ProdutosActionTypes.REQUEST_UPDATE_PRODUTOS: 
       return {
@@ -15,7 +14,7 @@ export function produtosReducer(
     case ProdutosActionTypes.SET_PRODUTOS: {
       return {
         ...state,
-        produtos: action.payload,
+        produtos: action.produtos,
         loading: false,
       }
     }

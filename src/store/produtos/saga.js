@@ -3,8 +3,9 @@ import {  ProdutosActionTypes } from './types'
 import api from '../api';
 
 function* fetchProdutos() {
-  const produtos = yield call(api.get, '/produtos')
-  yield put({ type: ProdutosActionTypes.SET_PRODUTOS, produtos: produtos.articles });
+  const res = yield call(api.get, '/produtos')
+  const produtos = res.data.data;
+  yield put({ type: ProdutosActionTypes.SET_PRODUTOS, produtos });
 }
 
 export function* produtosWatcher() {

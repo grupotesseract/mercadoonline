@@ -21,7 +21,7 @@ class Produtos extends Component {
         <Typography variant="h3" style={{ marginTop: 20 }}>
           Lista de produtos
         </Typography>
-        {filtraProdutos(produtos).map((produto) => (
+        {produtos && filtraProdutos(produtos).map((produto) => (
           <Produto
             addProduto={addProduto}
             key={produto.id}
@@ -29,6 +29,7 @@ class Produtos extends Component {
             decrementaProduto={decrementaProduto}
           />
         ))}
+        {!produtos && <span>Nenhum produto encontrado</span>}
       </div>
     );
   }

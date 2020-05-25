@@ -62,15 +62,15 @@ const Produto = (props) => {
       <div className={classes.row}>
         <CardMedia
           className={classes.cover}
-          image={'/produtos/'+produto.foto}
+          image={produto.foto}
           title=""
         />
         <CardContent className={classes.informacoes}>
             <Typography className={classes.title} gutterBottom>
-              {produto.nome}
+              {produto.titulo}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              {produto.nome}
+              {produto.subtitulo}
             </Typography>
             <Typography variant="body2" component="p">
               {produto.descricao}
