@@ -5,7 +5,7 @@ class Api {
 
   constructor() {
     this.api = axios.create({
-      baseURL: 'https://develop.api.creditorotativo.com.br/api/',
+      baseURL: 'https://meumercado.online/api/',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Accept': 'application/json',
