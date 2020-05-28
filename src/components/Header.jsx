@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,8 +10,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, MenuItem } from '@material-ui/core';
-import CarrinhoContext from '../CarrinhoContext';
+import * as ProdutosActions from "../store/produtos/actions";
 import Menu from '@material-ui/core/Menu';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -71,16 +73,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-export default function Header() {
+const Header = ({ filtroProdutos, setFiltroProdutos }) => {
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = useState(null)
   const [redirect, setRedirect] = useState(null)
-
-  const context = useContext(CarrinhoContext);
-  const { setFiltro } = context;
-
-
 
   const handleMenuOpen = (event) => {
     setMenuOpen(event.currentTarget);
@@ -135,7 +131,8 @@ export default function Header() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              onChange={e => setFiltro(e.target.value)}
+              value={filtroProdutos}
+              onChange={e => setFiltroProdutos({ filtro: e.target.value})}
             />
           </div>
           <div className={classes.sectionDesktop}>
@@ -151,3 +148,15 @@ export default function Header() {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  const { produtos } = state;
+  return { 
+    filtroProdutos: produtos.filtroProdutos,
+  };
+}
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(ProdutosActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

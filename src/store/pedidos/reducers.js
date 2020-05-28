@@ -4,7 +4,7 @@ export function pedidosReducer(
   state = INITIAL_STATE_PEDIDOS,
   action
 ) {
-  const { carrinho } = state;
+  const carrinho = [ ...state.carrinho ];
   switch (action.type) {
     case PedidosActionTypes.ENVIA_PEDIDO: 
       return {
@@ -56,10 +56,6 @@ export function pedidosReducer(
         return;
       }
 
-      if (produtoIndex >= 0) {
-        carrinho.splice(produtoIndex, 1);
-      }
-
       if (produtoIndex === -1) {
         console.log("tentando remover produto inexistente");
         return;
@@ -69,6 +65,7 @@ export function pedidosReducer(
         console.log("Diminuindo quantidade do produto:", produto);
         carrinho[produtoIndex].quantidade--;
         if(carrinho[produtoIndex].quantidade <= 0) {
+        console.log("removendo", produto);
           carrinho.splice(produtoIndex, 1);
         }
       }

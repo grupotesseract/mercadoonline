@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 
 const Produto = (props) => {
   const classes = useStyles();
-  const { produto } = props;
+  const { produto, produtoCarrinho } = props;
 
   return (
     <Card className={classes.root}>
@@ -81,7 +81,7 @@ const Produto = (props) => {
         <span style={{padding: 10}}>R$ {produto.preco}</span>
 
         {
-          produto.quantidade > 0 &&
+          produtoCarrinho && produtoCarrinho.quantidade > 0 &&
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Button
               color="primary"

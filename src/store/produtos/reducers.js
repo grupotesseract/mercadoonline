@@ -18,6 +18,12 @@ export function produtosReducer(
         loading: false,
       }
     }
+    case ProdutosActionTypes.SET_FILTRO: {
+      return {
+        ...state,
+        filtroProdutos: action.filtro,
+      }
+    }
     default:
       return state
   }

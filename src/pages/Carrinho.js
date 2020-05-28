@@ -13,7 +13,6 @@ class Carrinho extends Component {
 
   handleFinalizarCompra() {
     const { produtos, whatsappNumber } = this.context;
-    console.log("produtos no carrinho", produtos);
     let msgWhatsapp = '';
     msgWhatsapp += 'Pedido feito em ' + new Date().toLocaleString('pt-BR') + '\n\n';
     msgWhatsapp += 'Quantidade | Produto\n'
@@ -22,66 +21,75 @@ class Carrinho extends Component {
       return 'qtd: ' + produto.quantidade + ' | ' + produto.nome;
     })
     .join('\n');
-    console.log('msg zap', msgWhatsapp);
     const url = 'https://api.whatsapp.com/send?phone='+whatsappNumber+'&text=' + encodeURIComponent(msgWhatsapp);
-    console.log("url", url);
     window.open(url);
   }
 
   render() {
+    const { 
+      carrinho,
+      addProdutoCarrinho,
+      decrementaProdutoCarrinho,
+      removeProdutoCarrinho
+    } = this.props;
 
-    const { produtos, addProduto, decrementaProduto, removeProduto } = this.context;
-    const { pedido } = this.props;
-    console.log("carrinho no redux", pedido);
-    console.log("produtos no carrinho", produtos);
-
-    return <div className="App">
-      <header className="App-header">
-        <Header />
-      </header>
-      <Typography variant="h3" style={{marginTop: 20}}>Carrinho</Typography>
-      <div style={{ padding: 10 }}>
-        {produtos.map(produto => <Produto
-          carrinho={true}
-          produto={produto}
-          key={produto.id}
-          addProduto={addProduto}
-          decrementaProduto={decrementaProduto}
-          removeProduto={removeProduto}
-        />)}
-        {
-          produtos.length <= 0 &&
-          <div>
-            <span> Você não tem produtos no carrinho.</span>
-            <Link to="/" style={{ margin: 10 }}>
-              <Button
-                color="primary"
-                variant="contained"
-              >
-                Ver mais produtos
-              </Button>
-            </Link>
-          </div>
-        }
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Header />
+        </header>
+        <Typography variant="h3" style={{ marginTop: 20 }}>
+          Carrinho
+        </Typography>
+        <div style={{ padding: 10 }}>
+          {carrinho.map((produto) => (
+            <Produto
+              carrinho={true}
+              produto={produto}
+              produtoCarrinho={carrinho.find((pc) => pc.id === produto.id)}
+              key={produto.id}
+              addProduto={addProdutoCarrinho}
+              decrementaProduto={decrementaProdutoCarrinho}
+              removeProduto={removeProdutoCarrinho}
+            />
+          ))}
+          {carrinho.length <= 0 && (
+            <div>
+              <span>Você não tem produtos no carrinho.</span>
+              <Link to="/" style={{ margin: 10 }}>
+                <Button color="primary" variant="contained">
+                  Ver mais produtos
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+        {carrinho.length > 0 && (
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => this.handleFinalizarCompra()}
+            style={{
+              marginTop: 5,
+              marginBottom: 20,
+              padding: 20,
+              fontSize: 18,
+              width: "100vw",
+            }}
+          >
+            Finalizar Compra
+          </Button>
+        )}
       </div>
-      {
-        produtos.length > 0 &&
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={() => this.handleFinalizarCompra()}
-          style={{ marginTop: 5, marginBottom: 20, padding: 20, fontSize: 18, width: '100vw'  }}
-        >
-          Finalizar Compra
-        </Button>
-      }
-    </div>
+    );
   }
 }
 
 function mapStateToProps(state) {
   const { pedido } = state;
-  return { pedido };
+  return { 
+    carrinho: [ ...pedido.carrinho ],
+  };
 }
 
 const mapDispatchToProps = (dispatch) =>
