@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as PedidosActions from "../store/pedidos/actions";
 import { bindActionCreators } from 'redux';
+import FinalizarCompra from '../components/FinalizarCompra';
 
 class Carrinho extends Component {
   static contextType = CarrinhoContext
@@ -65,20 +66,9 @@ class Carrinho extends Component {
           )}
         </div>
         {carrinho.length > 0 && (
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={() => this.handleFinalizarCompra()}
-            style={{
-              marginTop: 5,
-              marginBottom: 20,
-              padding: 20,
-              fontSize: 18,
-              width: "100vw",
-            }}
-          >
-            Finalizar Compra
-          </Button>
+          <>
+          <FinalizarCompra />
+          </>
         )}
       </div>
     );
