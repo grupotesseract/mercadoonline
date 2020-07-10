@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, createStyles, makeStyles, Paper } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Button, createStyles, makeStyles, Paper, TextField } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
@@ -23,9 +23,26 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const FinalizarCompra = () => {
+const FinalizarCompra = ({ enviaPedido }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [nome, setNome] = useState('');
+  const [endereco, setEndereco] = useState('');
+  const [celular, setCelular] = useState('');
+  const [numeroEndereco, setNumeroEndereco] = useState('');
+
+  const finalizaCompra = () => {
+    console.log('finalizaCOmpra', {
+      nome,
+      celular,
+      endereco,
+    })
+    enviaPedido({
+      nome,
+      celular,
+      endereco,
+    })
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -65,10 +82,41 @@ const FinalizarCompra = () => {
       >
         <Fade in={open}>
           <Paper style={{ padding: 20 }}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">
-              react-transition-group animates me.
-            </p>
+            <h2>Finalizar Compra</h2>
+            <p>Preencha seus dados e finalize sua compra</p>
+            <form>
+              <TextField
+                id="nome"
+                label="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+              <TextField
+                id="endereco"
+                label="Endereço"
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+              />
+              <TextField
+                id="numero"
+                label="Número"
+                value={numeroEndereco}
+                onChange={(e) => setNumeroEndereco(e.target.value)}
+              />
+              <TextField
+                id="celular"
+                label="Celular"
+                value={celular}
+                onChange={(e) => setCelular(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={finalizaCompra}
+              >
+                Finalizar Compra
+              </Button>
+            </form>
           </Paper>
         </Fade>
       </Modal>

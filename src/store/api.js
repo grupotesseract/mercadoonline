@@ -5,7 +5,7 @@ class Api {
 
   constructor() {
     this.api = axios.create({
-      baseURL: 'https://meumercado.online/api/',
+      baseURL: 'https://admin.meumercado.online/api/',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Accept': 'application/json',
