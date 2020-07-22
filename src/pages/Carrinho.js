@@ -12,20 +12,6 @@ import FinalizarCompra from '../components/FinalizarCompra';
 class Carrinho extends Component {
   static contextType = CarrinhoContext
 
-  handleFinalizarCompra() {
-    const { produtos, whatsappNumber } = this.context;
-    let msgWhatsapp = '';
-    msgWhatsapp += 'Pedido feito em ' + new Date().toLocaleString('pt-BR') + '\n\n';
-    msgWhatsapp += 'Quantidade | Produto\n'
-    msgWhatsapp += produtos
-    .map(produto => {
-      return 'qtd: ' + produto.quantidade + ' | ' + produto.nome;
-    })
-    .join('\n');
-    const url = 'https://api.whatsapp.com/send?phone='+whatsappNumber+'&text=' + encodeURIComponent(msgWhatsapp);
-    window.open(url);
-  }
-
   render() {
     const { 
       carrinho,

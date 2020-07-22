@@ -14,7 +14,7 @@ const getProdutos = state => {
 }
 
 const enviaPedidoViaWhatsapp = ({ produtos }) => {
-  const whatsappNumber = '5548984864947';
+  const whatsappNumber = '5548988198215';
   let msgWhatsapp = "";
   msgWhatsapp +=
     "Pedido feito em " + new Date().toLocaleString("pt-BR") + "\n\n";

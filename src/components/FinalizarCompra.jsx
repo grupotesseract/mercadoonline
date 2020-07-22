@@ -41,14 +41,6 @@ const FinalizarCompra = ({ enviaPedido, enviaZap, pedido }) => {
   const [numeroEndereco, setNumeroEndereco] = useState('');
   const [errorSubmit, setErrorSubmit] = useState(false);
 
-
-  useEffect(() => {
-    if(pedido.pedidoEnviado && !pedido.loading) {
-
-
-    }
-
-  }, [pedido.loading, pedido.pedidoEnviado])
   const finalizaCompra = () => {
     if (nome === "" || endereco === "") {
       setErrorSubmit(true);
