@@ -5,6 +5,8 @@ export const enviaPedido = (payload) => ({
   payload
 })
 
+export const enviaZap = () => ({ type: PedidosActionTypes.ENVIA_ZAP });
+
 export const addProdutoCarrinho = (produto) => ({
   type: PedidosActionTypes.ADD_PRODUTO_CARRINHO,
   produto,
