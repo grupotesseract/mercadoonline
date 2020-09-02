@@ -10,8 +10,16 @@ export function pedidosReducer(
       return {
         ...state,
         loading: true,
+        pedidoEnviado: false,
+        pedidoSalvo: false,
         error: null,
       }
+    case PedidosActionTypes.PEDIDO_SALVO: {
+      return {
+        ...state,
+        pedidoSalvo: true,
+      }
+    }
     case PedidosActionTypes.PEDIDO_ENVIADO: {
       return {
         ...state,
@@ -44,6 +52,7 @@ export function pedidosReducer(
 
       return {
         ...state,
+        pedidoEnviado: false,
         carrinho,
       }
     }
@@ -72,6 +81,7 @@ export function pedidosReducer(
 
       return {
         ...state,
+        pedidoEnviado: false,
         carrinho,
       }
     }
@@ -90,6 +100,7 @@ export function pedidosReducer(
 
       return {
         ...state,
+        pedidoEnviado: false,
         carrinho,
       }
     }

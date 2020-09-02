@@ -3,14 +3,17 @@ import './App.css';
 import Routes from "./routes";
 import { CarrinhoProvider } from './CarrinhoContext';
 import { Provider } from 'react-redux';
-import store from './store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 
 function App() {
   return (
     <Provider store={store}>
-      <CarrinhoProvider>
-        <Routes />
-      </CarrinhoProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <CarrinhoProvider>
+          <Routes />
+        </CarrinhoProvider>
+      </PersistGate>
     </Provider>
   );
 }

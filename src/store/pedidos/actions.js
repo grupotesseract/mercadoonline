@@ -1,8 +1,11 @@
 import { PedidosActionTypes } from './types'
 
-export const enviaPedido = () => ({
+export const enviaPedido = (payload) => ({
   type: PedidosActionTypes.ENVIA_PEDIDO,
+  payload
 })
+
+export const enviaZap = () => ({ type: PedidosActionTypes.ENVIA_ZAP });
 
 export const addProdutoCarrinho = (produto) => ({
   type: PedidosActionTypes.ADD_PRODUTO_CARRINHO,
