@@ -12,13 +12,13 @@ export const PedidosActionTypes = {
 export const INITIAL_STATE_PEDIDOS = {
   carrinho: [],
   cliente: {
-    nome: '',
-    celular: '',
-    endereco: '',
+    nome: "",
+    celular: "",
+    endereco: "",
   },
-  loading: false,
   error: null,
   status: {
+    loading: false,
     enviado: false,
     salvo: false,
   },
