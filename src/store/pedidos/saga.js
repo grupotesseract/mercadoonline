@@ -4,7 +4,6 @@ import api from '../api';
 
 const getProdutos = state => {
   const { carrinho } = state.pedido;
-  console.log('carrinho', carrinho);
   const produtos = carrinho.map(produto => ({
     produto_id: produto.id,
     quantidade: produto.quantidade,
@@ -34,25 +33,31 @@ const enviaPedidoViaWhatsapp = ({ produtos }) => {
 };
 
 function* salvaPedido({ nome, celular, endereco }) {
+  const produtos = yield select(getProdutos);
   try {
-    const produtos = yield select(getProdutos);
     const pedidoSalvo = yield call(api.post, '/pedidos', {
       nome_cliente: nome,
       celular,
       endereco,
       produtos,
     })
-    if (!pedidoSalvo) throw Error('erro ao salvar')
-    yield put({ type: PedidosActionTypes.PEDIDO_SALVO });
+    if (pedidoSalvo) {
+      yield put({ type: PedidosActionTypes.PEDIDO_SALVO });
+    }
+  } catch(error) {
+    yield put({type: PedidosActionTypes.PEDIDO_ERRO, error})
+  }
+  try {
     const pedidoEnviado = yield call(enviaPedidoViaWhatsapp, { produtos })
-    if (!pedidoEnviado) throw Error('erro ao enviar')
-    yield put({ type: PedidosActionTypes.PEDIDO_ENVIADO });
+    if (pedidoEnviado) {
+      yield put({ type: PedidosActionTypes.PEDIDO_ENVIADO });
+    }
   } catch(error) {
     yield put({type: PedidosActionTypes.PEDIDO_ERRO, error})
   }
 }
 
-function* reenviaZap() {
+function* reenviaMsgWhatsapp() {
   const produtos = yield select(getProdutos);
   const pedidoEnviado = yield call(enviaPedidoViaWhatsapp, { produtos })
   if (!pedidoEnviado) console.log("erro ao enviar");
@@ -60,8 +65,8 @@ function* reenviaZap() {
 }
 
 export function* whatsappWatcher() {
-  yield take(PedidosActionTypes.ENVIA_ZAP)
-  yield fork(reenviaZap)
+  yield take(PedidosActionTypes.ENVIA_MSG_WHATSAPP)
+  yield fork(reenviaMsgWhatsapp)
 }
 
 export function* pedidosWatcher() {
