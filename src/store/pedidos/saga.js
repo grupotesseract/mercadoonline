@@ -33,13 +33,18 @@ const enviaPedidoViaWhatsapp = ({ produtos }) => {
 };
 
 function* salvaPedido({ nome, celular, endereco }) {
-  const produtos = yield select(getProdutos);
+  const produtos= yield select(getProdutos);
+  const produtosParaSalvar = produtos.map(produto => ({
+    produto_id: produto.produto_id,
+    quantidade: produto.quantidade,
+  }));
+  console.log('para salvar', produtosParaSalvar);
   try {
     const pedidoSalvo = yield call(api.post, '/pedidos', {
       nome_cliente: nome,
       celular,
       endereco,
-      produtos,
+      produtos: produtosParaSalvar,
     })
     if (pedidoSalvo) {
       yield put({ type: PedidosActionTypes.PEDIDO_SALVO });

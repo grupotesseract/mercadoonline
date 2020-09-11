@@ -22,6 +22,7 @@ export function pedidosReducer(
         ...state,
         status: {
           ...state.status,
+          loading: false,
           salvo: true,
         },
       }
