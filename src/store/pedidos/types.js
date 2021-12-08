@@ -1,6 +1,6 @@
 export const PedidosActionTypes = {
   ENVIA_PEDIDO: "pedidos/ENVIA_PEDIDO",
-  ENVIA_ZAP: "pedidos/ENVIA_ZAP",
+  ENVIA_MSG_WHATSAPP: "pedidos/ENVIA_MSG_WHATSAPP",
   PEDIDO_ENVIADO: "pedidos/PEDIDO_ENVIADO",
   PEDIDO_SALVO: "pedidos/PEDIDO_SALVO",
   PEDIDO_ERRO: "pedidos/PEDIDO_ERRO",
@@ -12,12 +12,14 @@ export const PedidosActionTypes = {
 export const INITIAL_STATE_PEDIDOS = {
   carrinho: [],
   cliente: {
-    nome: '',
-    celular: '',
-    endereco: '',
+    nome: "",
+    celular: "",
+    endereco: "",
   },
-  loading: false,
   error: null,
-  pedidoEnviado: false,
-  pedidoSalvo: false,
+  status: {
+    loading: false,
+    enviado: false,
+    salvo: false,
+  },
 };

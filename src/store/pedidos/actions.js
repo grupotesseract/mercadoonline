@@ -5,7 +5,9 @@ export const enviaPedido = (payload) => ({
   payload
 })
 
-export const enviaZap = () => ({ type: PedidosActionTypes.ENVIA_ZAP });
+export const enviaMensagemWhatsapp = () => ({
+  type: PedidosActionTypes.ENVIA_MSG_WHATSAPP,
+});
 
 export const addProdutoCarrinho = (produto) => ({
   type: PedidosActionTypes.ADD_PRODUTO_CARRINHO,

@@ -14,7 +14,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import * as PedidosActions from "../store/pedidos/actions";
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const FinalizarCompra = ({ enviaPedido, enviaZap, pedido }) => {
+const FinalizarCompra = ({ enviaPedido, enviaMensagemWhatsapp, pedido }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState('');
@@ -93,8 +92,8 @@ const FinalizarCompra = ({ enviaPedido, enviaZap, pedido }) => {
       >
         <Fade in={open}>
           <Paper style={{ padding: 20 }}>
-            {pedido.loading && <CircularProgress />}
-            {pedido.pedidoSalvo && !pedido.pedidoEnviado && (
+            {pedido.status.loading && <CircularProgress />}
+            {pedido.status.salvo && !pedido.status.enviado && (
               <>
                 <h2>Pedido salvo, enviando pedido para atendimento.</h2>
                 <Link to="/">
@@ -109,13 +108,13 @@ const FinalizarCompra = ({ enviaPedido, enviaZap, pedido }) => {
                 <Button
                   aria-label="Voltar para a página inicial"
                   color="primary"
-                  onClick={enviaZap}
+                  onClick={enviaMensagemWhatsapp}
                 >
                   Reenviar para atendimento
                 </Button>
               </>
             )}
-            {pedido.pedidoEnviado && (
+            {pedido.status.enviado && (
               <>
                 <h2>Pedido Enviado :)</h2>
                 <Link to="/">
@@ -130,13 +129,13 @@ const FinalizarCompra = ({ enviaPedido, enviaZap, pedido }) => {
                 <Button
                   aria-label="Voltar para a página inicial"
                   color="primary"
-                  onClick={enviaZap}
+                  onClick={enviaMensagemWhatsapp}
                 >
                   Reenviar para atendimento
                 </Button>
               </>
             )}
-            {!pedido.loading && !pedido.pedidoEnviado && (
+            {!pedido.status.loading && !pedido.status.enviado && (
               <>
                 <h2>Finalizar Compra</h2>
                 <p>Preencha seus dados e finalize sua compra</p>

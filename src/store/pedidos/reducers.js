@@ -9,31 +9,45 @@ export function pedidosReducer(
     case PedidosActionTypes.ENVIA_PEDIDO: 
       return {
         ...state,
-        loading: true,
-        pedidoEnviado: false,
-        pedidoSalvo: false,
+        status: {
+          ...state.status,
+          loading: true,
+          salvo: false,
+          enviado: false,
+        },
         error: null,
-      }
+      };
     case PedidosActionTypes.PEDIDO_SALVO: {
       return {
         ...state,
-        pedidoSalvo: true,
+        status: {
+          ...state.status,
+          loading: false,
+          salvo: true,
+        },
       }
     }
     case PedidosActionTypes.PEDIDO_ENVIADO: {
       return {
         ...state,
-        loading: false,
-        pedidoEnviado: true,
-      }
+        status: {
+          ...state.status,
+          loading: false,
+          enviado: true,
+        },
+      };
     }
     case PedidosActionTypes.PEDIDO_ERRO: {
       return {
         ...state,
-        loading: false,
-        pedidoEnviado: false,
+        status: {
+          ...state.status,
+          salvo: false,
+          loading: false,
+          enviado: false,
+        },
         error: action.payload,
-      }
+      };
     }
     case PedidosActionTypes.ADD_PRODUTO_CARRINHO: {
       const { produto } = action;
@@ -52,7 +66,11 @@ export function pedidosReducer(
 
       return {
         ...state,
-        pedidoEnviado: false,
+        status: {
+          ...state.status,
+          salvo: false,
+          enviado: false,
+        },
         carrinho,
       }
     }
@@ -81,7 +99,11 @@ export function pedidosReducer(
 
       return {
         ...state,
-        pedidoEnviado: false,
+        status: {
+          ...state.status,
+          salvo: false,
+          enviado: false,
+        },
         carrinho,
       }
     }
@@ -100,7 +122,11 @@ export function pedidosReducer(
 
       return {
         ...state,
-        pedidoEnviado: false,
+        status: {
+          ...state.status,
+          salvo: false,
+          enviado: false,
+        },
         carrinho,
       }
     }
